@@ -6,7 +6,6 @@ class ProductTag extends Model {}
 
 ProductTag.init(
 
-
   {
 
     id: {
@@ -33,9 +32,6 @@ ProductTag.init(
     },
   },
 },
-
-
-
   
   {
     sequelize,
