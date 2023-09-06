@@ -106,6 +106,24 @@ router.put('/:id', async (req, res) => {
 });
 
 router.delete('/:id', (req, res) => {
+  Category.destroy({
+    where: {
+      id: req.params.id,
+    },
+  })
+  .then((rowsAffected) => {
+    if (rowsAffected === 0) {
+      res.status(404).json({ message: 'No category found with this id!' }); 
+    }else{
+      res.status(204).end();
+    }
+  })
+  .catch((err) => {
+    console.error(err);
+    res.status(500).json(err);
+  });
+
+
   // delete a category by its `id` value
 });
 
