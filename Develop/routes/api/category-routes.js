@@ -53,7 +53,7 @@ router.post('/', (req, res) => {
           category_id,
         };
       });
-      return ProductCategory.bulkCreate(productCategoryIdArr);
+      return productCategoryIdArr.bulkCreate(productCategoryIdArr);
     }
     res.status(200).json(category);
   // create a new category
