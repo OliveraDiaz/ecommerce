@@ -44,8 +44,34 @@ router.get('/:id', async (req, res) => {
 });
 
 router.post('/', (req, res) => {
+  Category.create(req.body)
+  .then((category) => {
+    if (req.body.categoryIds && req.body.categoryIds.length) {
+        const productCategoryIdArr = req.body.categoryIds.map((category_id) => {  
+        return {
+          product_id: req.body.product_id,
+          category_id,
+        };
+      });
+      return ProductCategory.bulkCreate(productCategoryIdArr);
+    }
+    res.status(200).json(category);
   // create a new category
+})
+.then((productCategoryIds) => {
+  if (productCategoryIds) {
+    res.status(200).json(productCategoryIds);
+  }else {
+    res.status(200).json(category);
+  }
+})
+
+.catch((err) => {
+  console.log(err);
+  res.status(400).json(err);
 });
+});
+
 
 router.put('/:id', (req, res) => {
   // update a category by its `id` value
