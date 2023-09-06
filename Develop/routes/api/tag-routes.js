@@ -110,6 +110,16 @@ router.put('/:id', async (req, res) => {
 
 
 router.delete('/:id', (req, res) => {
+  Tag.destroy({
+    where: {
+      id: req.params.id,
+    },
+  })
+  .then((deletedTag) => {
+    res.json(deletedTag);
+  })
+  .catch((err) => res.json(err));
+
   // delete on tag by its `id` value
 });
 
