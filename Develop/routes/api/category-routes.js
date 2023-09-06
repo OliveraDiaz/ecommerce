@@ -73,7 +73,35 @@ router.post('/', (req, res) => {
 });
 
 
-router.put('/:id', (req, res) => {
+router.put('/:id', async (req, res) => {
+  try{
+    const categoryData = await Category.update(req.body, {
+      where: {
+        id: req.params.id,
+      },
+    });
+    if (!categoryData[0]) {
+      res.status(404).json({ message: 'No category found with this id!' });
+      return;
+    }
+    if (req.body.categoryIds && req.body.categoryIds.length) {
+     await ProductCategory.destory({
+        where: {
+          category_id: req.params.id,
+        },
+      });
+      const productCategoryIdArr = req.body.categoryIds.map((category_id) => {
+        return {
+          product_id: req.body.product_id,
+          category_id,
+        };
+      });
+      await ProductCategory.bulkCreate(productCategoryIdArr);
+    }
+    res.status(200).json(categoryData);
+  } catch (err) {
+    res.status(500).json(err);
+  }
   // update a category by its `id` value
 });
 
