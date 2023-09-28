@@ -19,7 +19,7 @@ router.get('/', (req, res) => {
   // find all tags
   // be sure to include its associated Product data
 
-  .then(dbTagData => res.json(dbTagData))
+  .then(dbTagData => res.json(TagData))
   .catch(err => {
     console.log(err);
     res.status(500).json(err);

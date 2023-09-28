@@ -19,11 +19,11 @@ include: [
   }
 ]
   })
-  .then(dbProductData => res.json(dbProductData))
+  .then(dbProductData => res.json(ProductData))
   .catch(err => {
     console.log(err);
     res.status(500).json(err);
-    
+
   });
 
   // find all products
@@ -44,13 +44,13 @@ router.get('/:id', async (req, res) => {
       res.status(404).json({ message: 'No product found with this id!' });
       return;
     }
-    res.status(200).json(productData);
+    res.status(200).json({ status: 'sucess', data: productData });
   }  
   catch (err) {
     res.status(500).json(err);
   }
-  // find a single product by its `id`
-  // be sure to include its associated Category and Tag data
+  // why doesnt this work?
+
 });
 
 
